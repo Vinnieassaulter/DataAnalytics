@@ -2,7 +2,7 @@
 documentclass: scrartcl
 fontsize: 10pt
 geometry: margin=0.7cm
-author: YUSUKE SUGIHARA, Pan Qiyang 
+author: Yusuke Sugihara, Pan Qiyang 
 title: Data Analytics Mini Project(No.13-Dejavu)
 numbersections: true
 toc: true
@@ -13,13 +13,39 @@ Nowadays, Quora is known as one of the most popular question-and-answer platform
 # Data Analytics
 
 ## Exploratory Data Analysis
+After we read the dataset, we first checked the basic information about the dataset by using the following code.
+### *Basic information*
 ```python
-data = pd.read_csv('data/train.csv')
-print(f'The number of datapoints is {data.shape}')
-data.head(5)
+data_train = pd.read_csv('data/train.csv')
+data_train.head()
+data_train.info()
+data_train.describe()
+data_train.shape
 ```
 
-## Set Representation, Minhashing and Locality Sensitive Hashing
+### *Missing Data*
+Next, we investigated the missing data. We found that there are three missing data in the dataset. Since we aim to identify the duplication between two pair questions, for the missing data rows, We decided to drop these three rows as follows.
+
+```python
+data_train[data_train.isnull().any(axis=1)] 
+data_train = data_train.dropna(how="any").reset_index(drop=True)
+data_train.shape
+```
+
+### *Duplication*
+```python
+
+```
+
+## Set Representation
+```python
+```
+
+## Minhashing 
+```python
+```
+
+## Locality Sensitive Hashing
 ```python
 ```
 
