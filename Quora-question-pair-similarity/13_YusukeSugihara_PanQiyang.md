@@ -14,7 +14,7 @@ Nowadays, Quora is known as one of the most popular question-and-answer platform
 # 2. Exploratory Data Analysis
 
 ## *The way to visualize the data in this project*
-Since the dataset that we will deal with is text data, we found tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
+Since the dataset that we will deal with is text data, we found Tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
 
 ## *Basic information*
 First of all, we displayed the data information, shape, and structure by using some appropriate methods in Pandas to better understand the dataset that we have.
@@ -61,19 +61,21 @@ We plotted the logarithm of the number of questions against each occurrence. on 
 
 
 ## Feature Engineering
-In order to better understand other features behind the dataset, we consider some new features. The motivation behind these features is that similar questions will have more words in common. The definition of the new features is as follows:
+To have a better understanding of other features behind the dataset, we considered some other features in addition to the given columns. The definition of the new features is as follows:
 
 - word_Common = (The number of common unique words in Question 1 and Question 2)
 - word_Total =(Total num of words in Question 1 + Total num of words in Question 2)
 - word_share = (word_common)/(word_Total)
 
-## Shared words
-
-From the following diagram, we can notice that as the word share increases there is a higher chance the questions are similar. From the histogram, we can understand that word share has some information differentiating similar and dissimilar classes. This trend matches the intuition that similar questions will have more words in common.
+## Shared words (Similarity between two questions)
+The motivation behind these new features is that we can intuitively predict that similar questions will have more words in common. In the functions `common_wrd`, we calculated the number of the intersection(common) words between question 1 and question 2 for each row in the dataset. And then in `total`, we calculated the union words in the two sets for each row. To calculate the similarity between the two questions, we divided the number of common words by the number of total words in the two questions by using the function `word_share`. When the two questions are similar, the value of `word_share` will be high. From the following diagram, we can notice that as the word share increases there is a higher chance the questions are similar. From the histogram, we can understand that `word_share` has some information differentiating similar and dissimilar classes. This trend matches the intuition that similar questions will have more words in common.
 
 ![](png/word_share.png)
 
- 
+
+## Word Cloud
+Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the STOPWORDS(English) library is that stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
+
 # 3. MinHash and Locality Sensitive Hashing
 
 ## *Set Representation*
