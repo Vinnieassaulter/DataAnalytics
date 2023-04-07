@@ -31,11 +31,9 @@ The dataset(train.csv) has 404290 rows and 6 columns. The data structure of trai
 ## *Missing Data*
 
 Next, we investigated whether there were any missing data in the dataset because missing values will have a bad influence on our data analysis. We found that there are three missing data in the dataset. Since we aim to identify the duplication between two pair questions, We decided to drop these three rows.
-
 ## *Duplication*
 
 After removing missing values from the dataset, We also examined how many duplicated questions are in the dataset by counting the number of rows in the "is_duplicated" column. We found that there are 149263 duplicated questions out of 404287 in the dataset, which means 37% of the dataset can be considered as duplicated questions.
-
 ![](/png/duplicate.png)
 
 ## *Unique questions ＆ Repeated questions*
@@ -63,9 +61,10 @@ We plotted the logarithm of the number of questions against each occurrence. on 
 ## Feature Engineering
 To have a better understanding of other features behind the dataset, we considered some other features in addition to the given columns. The definition of the new features is as follows:
 
-- word_Common = (The number of common unique words in Question 1 and Question 2)
-- word_Total =(Total num of words in Question 1 + Total num of words in Question 2)
-- word_share = (word_common)/(word_Total)
+- word_Common = (The number of unique common unique words in Question 1 and Question 2) = The intersection of the two sets.
+  
+- word_Total = (Total num of words in Question 1 + Total num of words in Question 2) = The union of the two sets.
+- word_share = (word_common)/(word_Total) = The similarity of the two sets.
 
 ## Shared words (Similarity between two questions)
 The motivation behind these new features is that we can intuitively predict that similar questions will have more words in common. In the functions `common_wrd`, we calculated the number of the intersection(common) words between question 1 and question 2 for each row in the dataset. And then in `total`, we calculated the union words in the two sets for each row. To calculate the similarity between the two questions, we divided the number of common words by the number of total words in the two questions by using the function `word_share`. When the two questions are similar, the value of `word_share` will be high. From the following diagram, we can notice that as the word share increases there is a higher chance the questions are similar. From the histogram, we can understand that `word_share` has some information differentiating similar and dissimilar classes. This trend matches the intuition that similar questions will have more words in common.
@@ -75,6 +74,9 @@ The motivation behind these new features is that we can intuitively predict that
 
 ## Word Cloud
 Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the STOPWORDS(English) library is that stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
+
+
+
 
 # 3. MinHash and Locality Sensitive Hashing
 
