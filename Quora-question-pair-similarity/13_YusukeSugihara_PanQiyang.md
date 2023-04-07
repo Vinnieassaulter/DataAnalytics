@@ -7,10 +7,11 @@ title: Data Analytics Mini Project(No.13-Dejavu)
 numbersections: true
 toc: true
 ---
-# Introduction
+# 1. Introduction
+   
 Nowadays, Quora is known as one of the most popular question-and-answer platforms on the internet. That allows people all over the world to learn from each other and a huge number of people utilize Quora every month indeed.　It is easy to imagine that there are tons of questions similar to each other on the platform. Therefore, it is considered beneficial for all users if there is an algorithm that can identify a new question that is similar to the existing questions on the platform that have already been answered by other users. Thus, our problem statement in this project is to predict whether a pair of questions are duplicates or not.
 
-# Exploratory Data Analysis
+# 2. Exploratory Data Analysis
 
 ## *The way to visualize the data in this project*
 Since the dataset that we will deal with is text data, we found tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
@@ -72,8 +73,8 @@ From the following diagram, we can notice that as the word share increases there
 
 ![](png/word_share.png)
 
-
-# MinHash and Locality Sensitive Hashing
+ 
+# 3. MinHash and Locality Sensitive Hashing
 
 ## *Set Representation*
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
@@ -85,9 +86,9 @@ We used MinHash to generate "min hash signatures" for each question in the set_d
 ## *Locality Sensitive Hashing*
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
 
-# Machine Learning Model
+# 4. Machine Learning Model
 
 ## Data Split
 
 
-# Conclusion
+# 5. Conclusion
