@@ -7,7 +7,7 @@ title: Data Analytics Mini Project(No.13-Dejavu)
 numbersections: true
 toc: true
 ---
-# 1. Introduction
+# 1. Introduction (Problem Statement)
    
 Nowadays, Quora is known as one of the most popular question-and-answer platforms on the internet. That allows people all over the world to learn from each other and a huge number of people utilize Quora every month indeed.　It is easy to imagine that there are tons of questions similar to each other on the platform. Therefore, it is considered beneficial for all users if there is an algorithm that can identify a new question that is similar to the existing questions on the platform that have already been answered by other users. Thus, our problem statement in this project is to predict whether a pair of questions are duplicates or not.
 
@@ -73,15 +73,19 @@ The motivation behind these new features is that we can intuitively predict that
 
 
 ## Word Cloud
-Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the STOPWORDS(English) library is that stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
+Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the` STOPWORDS` (English) library `from wordcloud` is that stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
 
-
+To implement the word cloud, as a preprocessing, we merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array.
 
 
 # 3. MinHash and Locality Sensitive Hashing
 
 ## *Set Representation*
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
+
+![](png/word_clous_duplicate_pair.png)
+
+![](png/word_clous_non_duplicate_pair.png)
 
 
 ## *MinHash signatures*
