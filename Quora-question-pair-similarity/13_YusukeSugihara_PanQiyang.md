@@ -13,7 +13,7 @@ Nowadays, Quora is known as one of the most popular question-and-answer platform
 
 # 2. Exploratory Data Analysis
 
-## *The way to visualize the data in this project*
+### ***The way of visualizing the data in this project**
 Since the dataset that we will deal with is text data, we found Tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
 
 ## *Basic information*
@@ -52,7 +52,7 @@ The top 5 most repeated questions are as follows:
 
 From a personal perspective, it makes sense that these questions make up the top five. Instagram is known as one of the most popular social media platforms in the world. It is not surprising that the questions related to Instagram were repeated many times. Regarding the rest of the questions, all of them can be considered as one of the most common curiosities among people.
 
-## *The number of questions against each occurrence*
+## *The number of questions for each occurrence*
 We plotted the logarithm of the number of questions against each occurrence. on a logarithmic scale. The majority of the questions in the dataset approximately have occurrences of less than 60. On the other hand, it can be seen that all questions that appear repeatedly more than 60 times are present only once each.
 
 ![](png/Log_Histogram_of_question_occurances.png)
@@ -73,20 +73,35 @@ The motivation behind these new features is that we can intuitively predict that
 
 
 ## Word Cloud
-Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the` STOPWORDS` (English) library `from wordcloud` is that stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
+Plotting Word Clouds help us to grasp some important words or features behind the large dataset. To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the` STOPWORDS` (English) library `from wordcloud` is because stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords.
+### Text Preprocessing
+In order to visualize the word cloud, we first preprocessed the text data. Furthermore, by executing this function, we can make it easier for our machine learning model to interpret the text data. The preprocessing steps are as follows:
+- Replace ",000,000" with "m" and ",000" with "k".
+- Replace apostrophes with their formal form (e.g., "won't" -> "will not").
+- Replace "n't" with "not" (e.g., "can't" -> "can not").
+- Replace shortened forms with their formal form (e.g., "what's" -> "what is").
+- Replace currency symbols with their respective currency name (e.g., "₹" -> "rupee").
+- Remove all non-space symbols.
+- Apply "stemming" (e.g., reduce "cats" and "catlike" to "cat").
+- Remove HTML tags.
 
-To implement the word cloud, as a preprocessing, we merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array.
+To visualize the word cloud, we first merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array. And then the elements stored in each array are taken out one by one and converted to string type. 
+All words in the array were combined into a single string by using a single space.
+
+### Word Cloud
+The preprocessed array and the stopwords to be ignored when visualizing were given to the WordCloud object. The maximum number of words displayed in WordCloud was set to 100 words in order to make it easier to see. Each word cloud for duplicated and non-duplicated questions is shown below. 
+
+#### **Duplicated Questions**
+![](png/word_clous_duplicate_pair.png)
+
+#### **Non-Duplicated Questions**
+![](png/word_clous_non_duplicate_pair.png)
 
 
 # 3. MinHash and Locality Sensitive Hashing
 
 ## *Set Representation*
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
-
-![](png/word_clous_duplicate_pair.png)
-
-![](png/word_clous_non_duplicate_pair.png)
-
 
 ## *MinHash signatures*
 We used MinHash to generate "min hash signatures" for each question in the set_dict dictionary. The signatures will be stored in the min_dict dictionary, which maps each question to its corresponding min hash signature.
