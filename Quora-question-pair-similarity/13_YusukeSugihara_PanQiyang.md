@@ -16,7 +16,7 @@ Nowadays, Quora is known as one of the most popular question-and-answer platform
 ### ***The way of visualizing the data in this project**
 Since the dataset that we will deal with is text data, we found Tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
 
-## *Basic information*
+## Basic information
 First of all, we displayed the data information, shape, and structure by using some appropriate methods in Pandas to better understand the dataset that we have.
 The dataset(train.csv) has 404290 rows and 6 columns. The data structure of train.csv is as follows:
 | Column Name  | Description                                                         |
@@ -31,15 +31,15 @@ The dataset(train.csv) has 404290 rows and 6 columns. The data structure of trai
 - **test_id**: A simple row ID.
 - **question{1, 2}**: The actual textual contents of the questions. -->
 
-## *Missing Data*
+## Missing Data
 
 Next, we investigated whether there were any missing data in the dataset because missing values will have a bad influence on our data analysis. We found that there are three missing data in the dataset. Since we aim to identify the duplication between two pair questions, We decided to drop these three rows.
-## *Duplication*
+## Duplication between two questions
 
 After removing missing values from the dataset, We also examined how many duplicated questions are in the dataset by counting the number of rows in the "is_duplicated" column. We found that there are 149263 duplicated questions out of 404287 in the dataset, which means 37% of the dataset can be considered as duplicated questions.
 ![](/png/duplicate.png)
 
-## *Unique questions ＆ Repeated questions*
+## Unique questions ＆ Repeated questions
 
 Next, we counted the number of unique questions and repeated questions in the dataset. By combining the two columns ”qid1” and ”qid2” in the dataset, we can count the number of unique questions by using `np.unique()` in Pandas. The total number of unique questions is 537359. 
 
@@ -58,11 +58,33 @@ The top 5 most repeated questions are as follows:
 
 From a personal perspective, it makes sense that these questions make up the top five. Instagram is known as one of the most popular social media platforms in the world. It is not surprising that the questions related to Instagram were repeated many times. Regarding the rest of the questions, all of them can be considered as one of the most common curiosities among people.
 
-## *The number of questions for each occurrence*
-We plotted the logarithm of the number of questions against each occurrence. on a logarithmic scale. The majority of the questions in the dataset approximately have occurrences of less than 60. On the other hand, it can be seen that all questions that appear repeatedly more than 60 times are present only once each.
-
+## The number of questions for each occurrence
+We plotted the logarithm of the number of questions for each occurrence. on a logarithmic scale. The majority of the questions in the dataset approximately have occurrences of less than 60. On the other hand, it can be seen that all questions that appear repeatedly more than 60 times are present only once each.
 ![](png/Log_Histogram_of_question_occurances.png)
 
+
+## Word Count in Questions
+Next, we examined the distribution of how many words were included in each question.　Statistical data, the histogram of the number of words in each question and the Boxplot are shown below. It can be seen that the majority of the questions contain a word count of 1 to 80. It can also be observed that an extremely large number of questions contain only one or two words.
+
+| Statistic| total questions | mean | std | min | 25% | 50% | 75% | max   |
+| ---      | ---   | ---  | --- | --- | --- | --- | --- | ---   |
+| Value | 808574| 11.1 | 5.9 | 1.0 | 7.0 |10.0 |13.0 | 237.0|
+
+![](/png/word_count_dist.png)
+
+![](/png/word_count_dist(boxplot).png)
+
+### The maximum number of words in a question
+Since the questions that contain the maximum number of words are isolated from the rest of the questions, we decided to further investigate the questions that contain the maximum number of words, which is 237 words.
+By executing the following code, we found that all the questions that contain the maximum number of words are identical to each other.
+
+```python
+np.all(
+    total_q[word_counts == max(word_counts)].values ==
+    total_q[word_counts == max(word_counts)].values[0]
+)
+```
+![](/png/output_word_count_max.png)
 
 # 3. Feature Engineering
 To have a better understanding of other features behind the dataset, we considered some other features in addition to the given columns. The definition of the new features is as follows:
@@ -125,13 +147,22 @@ Each word cloud for duplicated and non-duplicated questions is shown below.  we 
 
 # 4. Locality-Sensitive Hashing
 
-## *Set Representation*
+## Import libraries for LSH
+
+```python
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
+from datasketch import MinHash, MinHashLSH
+from tqdm import tqdm
+```
+
+## Set Representation
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
 
-## *MinHash signatures*
+## MinHash signatures
 We used MinHash to generate "min hash signatures" for each question in the set_dict dictionary. The signatures will be stored in the min_dict dictionary, which maps each question to its corresponding min hash signature.
 
-## *Locality-sensitive hashing*
+## Locality-sensitive hashing
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
 
 ## Result
