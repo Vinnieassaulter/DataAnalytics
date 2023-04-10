@@ -70,9 +70,11 @@ Next, we examined the distribution of how many words were included in each quest
 | ---      | ---   | ---  | --- | --- | --- | --- | --- | ---   |
 | Value | 808574| 11.1 | 5.9 | 1.0 | 7.0 |10.0 |13.0 | 237.0|
 
+
 ![](/png/word_count_dist.png)
 
 ![](/png/word_count_dist(boxplot).png)
+
 
 ### The maximum number of words in a question
 Since the questions that contain the maximum number of words are isolated from the rest of the questions, we decided to further investigate the questions that contain the maximum number of words, which is 237 words.
@@ -84,6 +86,7 @@ np.all(
     total_q[word_counts == max(word_counts)].values[0]
 )
 ```
+
 ![](/png/output_word_count_max.png)
 
 # 3. Feature Engineering
@@ -148,6 +151,7 @@ Each word cloud for duplicated and non-duplicated questions is shown below.  we 
 # 4. Locality-Sensitive Hashing
 
 ## Import libraries for LSH
+We imported the necessary libraries for LSH as follows:
 
 ```python
 from nltk.corpus import stopwords
