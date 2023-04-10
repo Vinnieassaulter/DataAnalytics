@@ -61,6 +61,7 @@ From a personal perspective, it makes sense that these questions make up the top
 
 ## The number of questions for each occurrence
 We plotted the logarithm of the number of questions for each occurrence. on a logarithmic scale. The majority of the questions in the dataset approximately have occurrences of less than 60. On the other hand, it can be seen that all questions that appear repeatedly more than 60 times are present only once each.
+
 ![](png/Log_Histogram_of_question_occurances.png)
 
 
@@ -73,10 +74,10 @@ Next, we examined the distribution of how many words were included in each quest
 | Value | 808574| 11.1 | 5.9 | 1.0 | 7.0 |10.0 |13.0 | 237.0|
 |
 
-![](/png/word_count_dist.png)
+![](png/word_count_dist.png)
 
 
-![](/png/word_count_dist(boxplot).png)
+![](png/word_count_dist(boxplot).png)
 
 ### The maximum number of words in a question
 Since the questions that contain the maximum number of words are isolated from the rest of the questions, we decided to further investigate the questions that contain the maximum number of words, which is 237 words.
