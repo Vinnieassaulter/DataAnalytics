@@ -73,10 +73,10 @@ The motivation behind these new features is that we can intuitively predict that
 
 
 ## Word Cloud
-### - *Motivation*
+### Motivation
 We predicted that Duplicated Questions are likely to contain many unique words. In that sense, plotting Word Clouds help us to grasp some important words or features behind the large dataset. 
 
-### - *Import Libraries for Word Cloud Visualization*
+###  Import Libraries for Word Cloud Visualization
 To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the` STOPWORDS` (English) library `from wordcloud` is because stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords. As per the code below, the necessary libraries for preprocessing and visualization of a word cloud have been imported.
 
 ```python
@@ -86,7 +86,7 @@ from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 ```
 
-### - *Text Preprocessing*
+## Text Preprocessing
 In order to visualize the word cloud, we first preprocessed the text data. Furthermore, by going through this process, we can make the text data easier for our machine learning model to interpret the text data. The preprocessing steps are as follows:
 - Replace ",000,000" with "m" and ",000" with "k".
 - Replace apostrophes with their formal form (e.g., "won't" -> "will not").
@@ -100,9 +100,8 @@ In order to visualize the word cloud, we first preprocessed the text data. Furth
 To visualize the word cloud, we first merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array. And then the elements stored in each array are taken out one by one and converted to string type. 
 All words in the array were combined into a single string.
 
-### - Result
+### Result
 The preprocessed array and the stopwords to be ignored when visualizing were given to the WordCloud object. The maximum number of words displayed in WordCloud was set to 100 words in order to make it easier to see. 
-
 
 Each word cloud for duplicated and non-duplicated questions is shown below. In both Duplicated Questions and Non-Duplicated Questions, we can see that "best", "india", "will" are one of the most frequent words. On the other hand, we can only noticeably see "donald", "trump", "quora" and "life" in the **Duplicated Quetions** word cloud. 
 
