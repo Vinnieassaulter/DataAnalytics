@@ -48,7 +48,8 @@ The number of questions that are repeated more than 1 time is 111870 which is 20
 ![](/png/Unique_repeated_quesions.png)
 
 The top 5 most repeated questions are as follows:
-| Question                                                     | Frequency |
+
+Question                                                     | Frequency |
 | ------------------------------------------------------------ | --------- |
 | What are the best ways to lose weight?                       | 161       |
 | How can you look at someone's private Instagram account without following them? | 120       |
@@ -90,7 +91,7 @@ np.all(
 )
 ```
 
-![](/png/output_word_count_max.png)
+![](png/output_word_count_max.png)
 
 # 3. Feature Engineering
 To have a better understanding of other features behind the dataset, we considered some other features in addition to the given columns. The definition of the new features is as follows:
