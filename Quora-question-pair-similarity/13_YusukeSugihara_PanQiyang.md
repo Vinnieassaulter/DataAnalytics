@@ -109,7 +109,6 @@ my_additional_stopwords = ['best','india','will','way','people','make']
 stopwords.update(my_additional_stopwords)
 wc = WordCloud(background_color="white", max_words= 100, stopwords=stopwords,collocations=False)
 ```
-
 Each word cloud for duplicated and non-duplicated questions is shown below.  we can only noticeably see "quora", "money", and "life" in the Duplicated Questions, while "one", "good", and "difference" is in common in the Non-Duplicated Questions. This result is consistent with our intuition that the Duplicated Questions are likely to contain many more specific words than the Non-Duplicated Questions.
 
 #### **Duplicated Questions**
@@ -128,6 +127,8 @@ We used MinHash to generate "min hash signatures" for each question in the set_d
 
 ## *Locality-sensitive hashing*
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
+
+## Result
 
 # 5. Machine Learning Model
 
