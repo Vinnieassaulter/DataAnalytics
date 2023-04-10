@@ -19,10 +19,13 @@ Since the dataset that we will deal with is text data, we found Tableau to be co
 ## *Basic information*
 First of all, we displayed the data information, shape, and structure by using some appropriate methods in Pandas to better understand the dataset that we have.
 The dataset(train.csv) has 404290 rows and 6 columns. The data structure of train.csv is as follows:
-- **id**: A simple row ID.
-- **qid1, qid2**: The unique ID of each question in the pair.
-- **question{1, 2}**: The actual textual contents of the questions.
-- **is_duplicate**: The label is about whether the two questions are duplicates of each other.
+| Column Name  | Description                                                         |
+| ------------ | ------------------------------------------------------------------- |
+| id           | A simple row ID.                                                    |
+| qid1, qid2   | The unique ID of each question in the pair.                         |
+| question{1,2}| The actual textual contents of the questions.                       |
+| is_duplicate | The label is about whether the two questions are duplicates of each other. |
+
 
 <!-- On the other hand, the data structure of train.csv is as follows:
 - **test_id**: A simple row ID.
@@ -44,11 +47,14 @@ The number of questions that are repeated more than 1 time is 111778 which is 20
 ![](/png/Unique_repeated_quesions.png)
 
 The top 5 most repeated questions are as follows:
-- What are the best ways to lose weight?
-- How can you look at someone's private Instagram account without following them?
-- How can I lose weight quickly?
-- What's the easiest way to make money online?
-- Can you see who views your Instagram?
+| Question                                                     | Frequency |
+| ------------------------------------------------------------ | --------- |
+| What are the best ways to lose weight?                       | 161       |
+| How can you look at someone's private Instagram account without following them? | 120       |
+| How can I lose weight quickly?                               | 111       |
+| What's the easiest way to make money online?                  | 88        |
+| Can you see who views your Instagram?                         | 79        |
+
 
 From a personal perspective, it makes sense that these questions make up the top five. Instagram is known as one of the most popular social media platforms in the world. It is not surprising that the questions related to Instagram were repeated many times. Regarding the rest of the questions, all of them can be considered as one of the most common curiosities among people.
 
