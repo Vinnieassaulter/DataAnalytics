@@ -86,7 +86,7 @@ from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 ```
 
-## Text Preprocessing
+### Text Preprocessing
 In order to visualize the word cloud, we first preprocessed the text data. Furthermore, by going through this process, we can make the text data easier for our machine learning model to interpret the text data. The preprocessing steps are as follows:
 - Replace ",000,000" with "m" and ",000" with "k".
 - Replace apostrophes with their formal form (e.g., "won't" -> "will not").
@@ -97,13 +97,20 @@ In order to visualize the word cloud, we first preprocessed the text data. Furth
 - Apply "stemming" (e.g., reduce "cats" and "catlike" to "cat").
 - Remove HTML tags.
 
-To visualize the word cloud, we first merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array. And then the elements stored in each array are taken out one by one and converted to string type. 
-All words in the array were combined into a single string.
+<!-- To visualize the word cloud, we first merged the two questions in each row into one array for both duplicated questions and non-duplicated ones. With `flatten()`, we converted the 3D array into a 1D array. And then the elements stored in each array are taken out one by one and converted to string type. 
+All words in the array were combined into a single string. -->
 
 ### Result
-The preprocessed array and the stopwords to be ignored when visualizing were given to the WordCloud object. The maximum number of words displayed in WordCloud was set to 100 words in order to make it easier to see. 
+The preprocessed array and the stopwords to be ignored when visualizing were given to the WordCloud object. The maximum number of words displayed in WordCloud was set to 100 words in order to make it easier to see. Since we noticed that the words {"best","india","will","way","people","make"} are one of the most frequent words for both cases, we added them to the stopwords in order to identify the differences between the two cases more clearly.
 
-Each word cloud for duplicated and non-duplicated questions is shown below. In both Duplicated Questions and Non-Duplicated Questions, we can see that "best", "india", "will" are one of the most frequent words. On the other hand, we can only noticeably see "donald", "trump", "quora" and "life" in the **Duplicated Quetions** word cloud. 
+```python
+stopwords = set(STOPWORDS)
+my_additional_stopwords = ['best','india','will','way','people','make']
+stopwords.update(my_additional_stopwords)
+wc = WordCloud(background_color="white", max_words= 100, stopwords=stopwords,collocations=False)
+```
+
+Each word cloud for duplicated and non-duplicated questions is shown below.  we can only noticeably see "quora", "money", and "life" in the Duplicated Questions, while "one", "good", and "difference" is in common in the Non-Duplicated Questions. This result is consistent with our intuition that the Duplicated Questions are likely to contain many more specific words than the Non-Duplicated Questions.
 
 #### **Duplicated Questions**
 ![](png/word_clous_duplicate_pair.png)
@@ -111,8 +118,7 @@ Each word cloud for duplicated and non-duplicated questions is shown below. In b
 #### **Non-Duplicated Questions**
 ![](png/word_clous_non_duplicate_pair.png)
 
-
-# 4. MinHash and Locality Sensitive Hashing
+# 4. Locality-Sensitive Hashing
 
 ## *Set Representation*
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
@@ -120,7 +126,7 @@ We first represent the questions as set representations of k-shingles to guarant
 ## *MinHash signatures*
 We used MinHash to generate "min hash signatures" for each question in the set_dict dictionary. The signatures will be stored in the min_dict dictionary, which maps each question to its corresponding min hash signature.
 
-## *Locality Sensitive Hashing*
+## *Locality-sensitive hashing*
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
 
 # 5. Machine Learning Model
