@@ -19,6 +19,7 @@ Since the dataset that we will deal with is text data, we found Tableau to be co
 ## Basic information
 First of all, we displayed the data information, shape, and structure by using some appropriate methods in Pandas to better understand the dataset that we have.
 The dataset(train.csv) has 404290 rows and 6 columns. The data structure of train.csv is as follows:
+
 | Column Name  | Description                                                         |
 | ------------ | ------------------------------------------------------------------- |
 | id           | A simple row ID.                                                    |
@@ -66,15 +67,16 @@ We plotted the logarithm of the number of questions for each occurrence. on a lo
 ## Word Count in Questions
 Next, we examined the distribution of how many words were included in each question.　Statistical data, the histogram of the number of words in each question and the Boxplot are shown below. It can be seen that the majority of the questions contain a word count of 1 to 80. It can also be observed that an extremely large number of questions contain only one or two words.
 
+
 | Statistic| total questions | mean | std | min | 25% | 50% | 75% | max   |
 | ---      | ---   | ---  | --- | --- | --- | --- | --- | ---   |
 | Value | 808574| 11.1 | 5.9 | 1.0 | 7.0 |10.0 |13.0 | 237.0|
-
+|
 
 ![](/png/word_count_dist.png)
 
-![](/png/word_count_dist(boxplot).png)
 
+![](/png/word_count_dist(boxplot).png)
 
 ### The maximum number of words in a question
 Since the questions that contain the maximum number of words are isolated from the rest of the questions, we decided to further investigate the questions that contain the maximum number of words, which is 237 words.
