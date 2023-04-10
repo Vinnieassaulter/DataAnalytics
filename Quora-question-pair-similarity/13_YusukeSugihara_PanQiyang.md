@@ -137,6 +137,55 @@ By using Minshashing, we now compressed the questions to numeric representation,
 ## Result
 
 # 5. Machine Learning Model
-## Data Split
+
+In order to get a better performance for predicting duplicates, we applied another method based on Machine Learning - XGBoost and we will compare the result with the Hashing method.
+
+## *Data Split*
+We first split the original data into training data(70%) and test data(30%).
+
+## *TD-IDF word match*
+As we have seen before that the word share feature is strongly correlated to the is_duplicate label, we try to improve this feature, by using TF-IDF (term-frequency-inverse-document-frequency). TD-IDF is a statistical measure for evaluating how important a word is to a document in a collection or corpus. The term frequency (TF) component measures how frequently a term appears in a document, while the inverse document frequency (IDF) component measures how rare or common a term is across all documents in the corpus. Together, these components can be used to score the relevance of a term to a particular document or set of documents. More specificlly, first we count and weigh the words in order to measure how uncommon they are. We care about rare words existing in both questions than common one. For example, if the word "exercise" appears in both questions, they are more likely to be duplicate.
+
+Most common words and weights: <br>
+('the', 3.650647624888655e-06), <br>('what', 4.217860953995791e-06), <br>('is', 4.740302526107216e-06), <br>('i', 6.015037593984962e-06), <br>('how', 6.075038880248834e-06), <br>('a', 6.304812463353277e-06), <br>('to', 6.491103942047424e-06), <br>('in', 6.7559807319429525e-06), <br>('do', 7.77502196443705e-06), <br>('of', 8.220777192275757e-06)
+
+Least common words and weights: <br>
+('dcx3400', 9.998000399920016e-05),<br>
+('855', 9.998000399920016e-05),<br>
+('confederates', 9.998000399920016e-05),<br>
+('gonulcelen', 9.998000399920016e-05),<br>
+('asahi', 9.998000399920016e-05),<br>
+('oitnb', 9.998000399920016e-05),<br>
+('essex', 9.998000399920016e-05),<br>
+('prospering', 9.998000399920016e-05),<br>
+('hysteria', 9.998000399920016e-05),<br>
+('immerse', 9.998000399920016e-05)
+
+And we define TD-IDF word match as the fraction of the weights of shared words between 2 questions over the total weights of 2 questions.
+```python
+def tfidf_word_match_share(row):
+    q1words = {}
+    q2words = {}
+    for word in str(row['question1']).lower().split():
+        if word not in stops:
+            q1words[word] = 1
+    for word in str(row['question2']).lower().split():
+        if word not in stops:
+            q2words[word] = 1
+    if len(q1words) == 0 or len(q2words) == 0:
+        # The computer-generated chaff includes a few questions that are nothing but stopwords
+        return 0
+    
+    shared_weights = [weights.get(w, 0) for w in q1words.keys() if w in q2words] + [weights.get(w, 0) for w in q2words.keys() if w in q1words]
+    total_weights = [weights.get(w, 0) for w in q1words] + [weights.get(w, 0) for w in q2words]
+    
+    R = np.sum(shared_weights) / np.sum(total_weights)
+    return R
+```
+## *Model*
+We use logistic regression to produce the probability of being duplicate and XGboost to optimize the log-loss function.
+
+## Result
+The final prediction accuracy is 69.37%, precision is 58.81%, recall is 58.64%
 
 # 6. Conclusion
