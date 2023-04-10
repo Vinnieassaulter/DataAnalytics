@@ -41,9 +41,9 @@ After removing missing values from the dataset, We also examined how many duplic
 
 ## *Unique questions ＆ Repeated questions*
 
-Next, we counted the number of unique questions and repeated questions in the dataset. By combining the two columns ”qid1” and ”qid2” in the dataset, we can count the number of unique questions by using `np.unique()` in Pandas. The total number of unique questions is 537929. 
+Next, we counted the number of unique questions and repeated questions in the dataset. By combining the two columns ”qid1” and ”qid2” in the dataset, we can count the number of unique questions by using `np.unique()` in Pandas. The total number of unique questions is 537359. 
 
-The number of questions that are repeated more than 1 time is 111778 which is 20.78%. The maximum number of times a question occurs is 157. 
+The number of questions that are repeated more than 1 time is 111870 which is 20.8%. The maximum number of times a question occurs is 161. 
 ![](/png/Unique_repeated_quesions.png)
 
 The top 5 most repeated questions are as follows:
