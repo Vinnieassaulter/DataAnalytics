@@ -130,8 +130,6 @@ By using Minshashing, we now compressed the questions to numeric representation,
 
 ## Result
 
-
-
 # 5. Machine Learning Model
 ## Data Split
 
