@@ -58,7 +58,7 @@ We plotted the logarithm of the number of questions against each occurrence. on 
 ![](png/Log_Histogram_of_question_occurances.png)
 
 
-## Feature Engineering
+# 3. Feature Engineering
 To have a better understanding of other features behind the dataset, we considered some other features in addition to the given columns. The definition of the new features is as follows:
 
 - word_Common = (The number of unique common unique words in Question 1 and Question 2) = The intersection of the two sets.
@@ -113,7 +113,7 @@ Each word cloud for duplicated and non-duplicated questions is shown below. In b
 ![](png/word_clous_non_duplicate_pair.png)
 
 
-# 3. MinHash and Locality Sensitive Hashing
+# 4. MinHash and Locality Sensitive Hashing
 
 ## *Set Representation*
 We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
@@ -124,9 +124,9 @@ We used MinHash to generate "min hash signatures" for each question in the set_d
 ## *Locality Sensitive Hashing*
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
 
-# 4. Machine Learning Model
+# 5. Machine Learning Model
 
 ## Data Split
 
 
-# 5. Conclusion
+# 6. Conclusion
