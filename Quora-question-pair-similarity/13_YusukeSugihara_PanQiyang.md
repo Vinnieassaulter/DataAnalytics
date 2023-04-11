@@ -255,7 +255,18 @@ We use logistic regression to produce the probability of being duplicate and XGb
 
 
 ## Result
-The final prediction accuracy is 69.37%, precision is 58.81% and recall is 58.64%. It indicates that our model has some classification ability, but it is not very accurate. Besides, about 40% of the true positive samples were misclassified as negative by the model. And about 40% of our predicted positive samples are not true positive.
+We reach a highest accuracy of 69.37% with a threshold of 0.5, meanwhile the precision is 58.81% and recall is 58.64%. It indicates that our model has some classification ability, but it is not very accurate. Besides, about 40% of the true positive samples were misclassified as negative by the model. And about 40% of our predicted positive samples are not true positive. We can also reach a highest recall with threshold 0.2 and a highest precision with threshold 0.7. When the threshold goes over 0.7, the model predicts no duplicate thus we will have a null value for precision and a 0 for recall.
+
+| Threshold | Precision | Recall | Accuracy |
+| --------- | --------- | ------ | -------- |
+| 0.2       | 0.49      | 0.98   |  0.62    |
+| 0.3       | 0.51      | 0.95   |  0.64    |
+| 0.4       | 0.54      | 0.85   |  0.67    |
+| 0.5       | 0.59      | 0.58   |  0.69    |
+| 0.6       | 0.73      | 0.13   |  0.66    |
+| 0.7       | 0.76      | 0.11   |  0.65    |
+| 0.8       | ----      | 0.00   |  0.62    |
+| 0.9       | ----      | 0.00   |  0.62    |
 
 # 6. Conclusion
 The conclusion of this project is as follows:
@@ -266,4 +277,4 @@ The conclusion of this project is as follows:
   
 - Duplicated questions have more specific words in the questions compared to Non-Duplicatd questions.
 
-- The best precision and recall of the LSH algorithm is approximately 30%, while when we utilize a machine learning model for identifying the duplications, they are "xxxx", respectively., which is xxx times better than LSH.
+- The best precision and recall of the LSH algorithm is approximately 30%, while when we utilize a machine learning model for identifying the duplications, they are 76% and 98%, respectively., which is 2~3 times better than LSH.
