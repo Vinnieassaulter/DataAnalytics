@@ -229,6 +229,6 @@ We use logistic regression to produce the probability of being duplicate and XGb
 
 
 ## Result
-The final prediction accuracy is 69.37%, precision is 58.81%, recall is 58.64%
+The final prediction accuracy is 69.37%, precision is 58.81% and recall is 58.64%. It indicates that our model has some classification ability, but it is not very accurate. Besides, about 40% of the true positive samples were misclassified as negative by the model. And about 40% of our predicted positive samples are not true positive.
 
 # 6. Conclusion
