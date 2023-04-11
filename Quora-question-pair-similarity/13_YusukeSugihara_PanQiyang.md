@@ -81,10 +81,10 @@ Next, we examined the distribution of how many words were included in each quest
 ![](png/word_count_dist(boxplot).png)
 
 ### The maximum number of words in a question
-Since the questions that contain the maximum number of words are isolated from the rest of the questions, we decided to further investigate the questions that contain the maximum number of words, which is 237 words.
-By executing the following code, we found that all the questions that contain the maximum number of words are identical to each other.
+Since the questions that contain the maximum number of words are isolated from the rest of the questions, we further investigated the questions that contain the maximum number of words, which is 237 words. By executing the following code, we found that all the questions that contain the maximum number of words are identical to each other as shown below.
 
 ```python
+print(total_q[word_counts == max(word_counts)].head())
 np.all(
     total_q[word_counts == max(word_counts)].values ==
     total_q[word_counts == max(word_counts)].values[0]
@@ -165,7 +165,7 @@ from tqdm import tqdm
 ```
 
 ## Set Representation
-We first represent the questions as set representations of k-shingles to guarantee that the probability of obtaining each shingle is low in the document space. We adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. Additionally, since common English words are not useful for data analysis such as "the" and "and", we first import the English stopwords from the NLTK library and remove them from the set representation of the questions. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
+In the set representation process, we adopted a word-level shingle instead of a character-level shingle and I set k=1. The reason why I adopted k=1, in this case, is that the probability of finding each shingle in the union of shingles is lower in the second case with k=2. The norm_dict dictionary maps a question to the actual question string. This dictionary can be used to evaluate the results of the MinHashLSH output.
 
 ## MinHash signatures
 We used MinHash to generate "min hash signatures" for each question in the set_dict dictionary. The signatures will be stored in the min_dict dictionary, which maps each question to its corresponding min hash signature.
