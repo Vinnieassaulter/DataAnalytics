@@ -221,8 +221,12 @@ def tfidf_word_match_share(row):
     R = np.sum(shared_weights) / np.sum(total_weights)
     return R
 ```
-## *Model*
+## *Model&Traning*
 We use logistic regression to produce the probability of being duplicate and XGboost to optimize the log-loss function.
+
+**Tranining Curve**
+![](png/MLtrainingcurve.png)
+
 
 ## Result
 The final prediction accuracy is 69.37%, precision is 58.81%, recall is 58.64%
