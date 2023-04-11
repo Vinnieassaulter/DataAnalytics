@@ -47,7 +47,7 @@ Next, we investigated whether there were any missing data in the dataset because
 
 After removing missing values from the dataset, We also examined how many duplicated questions are in the dataset by counting the number of rows in the "is_duplicated" column. We found that there are 149263 duplicated questions out of 404287 in the dataset, which means 37% of the dataset can be considered as duplicated questions.
 
-![](/png/duplicate.png)
+![](png/duplicate.png)
 
 ## Unique questions ＆ Repeated questions
 
