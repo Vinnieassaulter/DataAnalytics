@@ -174,6 +174,21 @@ We used MinHash to generate "min hash signatures" for each question in the set_d
 By using Minshashing, we now compressed the questions to numeric representation, and we’ve defined a signature metric. Since we would like to compare questions that are more likely similar to each other rather than comparing two completely different questions with each other, we can use Locality Sensitive Hashing (LSH) to find similar questions in a large set.
 
 ## Result
+Since increasing the number of  MinHash permutations improves model performance while increasing computational cost, the number of permutations was set to 256. Since the threshold for Similarity is also a tuning parameter as well as the permutation, we investigated how Precision and Recall vary for different thresholds. The best balance between Precision and Recall, which are in a trade-off relationship, can be found at a threshold value of 7.5. Based on the results of the graph, the best performance can be said to be approximately 30%.
+
+| Threshold | Precision | Recall |
+|-----------|-----------|--------|
+| 0.2       | 0.00      | 1.00   |
+| 0.3       | 0.01      | 0.99   |
+| 0.4       | 0.04      | 0.93   |
+| 0.5       | 0.09      | 0.81   |
+| 0.6       | 0.20      | 0.58   |
+| 0.7       | 0.28      | 0.43   |
+| 0.8       | 0.34      | 0.24   |
+| 0.9       | 0.35      | 0.14   |
+
+
+![](png/precision_recall.png)
 
 # 5. Machine Learning Model
 ## Data Split
