@@ -17,7 +17,7 @@ And also, we will create the ML model and compare its performance with the LSH a
 
 # 2. Exploratory Data Analysis
 
-### ***The way of visualizing the data in this project**
+### **The way of visualizing the data in this project**
 Since the dataset that we will deal with is text data, we found Tableau to be considerably complicated to utilize for visualization of this data set and decided to use Seaborn and Matplotlib.
 
 ## Basic information
@@ -31,11 +31,6 @@ The dataset(train.csv) has 404290 rows and 6 columns. The data structure of trai
 | question{1,2}| The actual textual contents of the questions.                       |
 | is_duplicate | The label is about whether the two questions are duplicates of each other. |
 
-
-<!-- On the other hand, the data structure of train.csv is as follows:
-- **test_id**: A simple row ID.
-- **question{1, 2}**: The actual textual contents of the questions. -->
-
 ## Missing Data
 
 Next, we investigated whether there were any missing data in the dataset because missing values will have a bad influence on our data analysis. We found that there are three missing data in the dataset. Since we aim to identify the duplication between two pair questions, We decided to drop out these three rows.
@@ -47,18 +42,16 @@ Next, we investigated whether there were any missing data in the dataset because
 
 After removing missing values from the dataset, We also examined how many duplicated questions are in the dataset by counting the number of rows in the "is_duplicated" column. We found that there are 149263 duplicated questions out of 404287 in the dataset, which means 37% of the dataset can be considered as duplicated questions.
 
-![](png/duplicate.png)
-
 ## Unique questions ＆ Repeated questions
 
 Next, we counted the number of unique questions and repeated questions in the dataset. By combining the two columns ”qid1” and ”qid2” in the dataset, we can count the number of unique questions by using `np.unique()` in Pandas. The total number of unique questions is 537359. 
 
 The number of questions that are repeated more than 1 time is 111870 which is 20.8%, while only once questions are 425489 which is 79.2%. The maximum number of times a question occurs is 161. 
-![](/png/Unique_repeated_quesions.png)
+<img src="./png/Unique_repeated_quesions.png" style="zoom:25%;" />
 
 The top 5 most repeated questions are as follows:
 
-Question                                                     | Frequency |
+|Question                                                     | Frequency 
 | ------------------------------------------------------------ | --------- |
 | What are the best ways to lose weight?                       | 161       |
 | How can you look at someone's private Instagram account without following them? | 120       |
@@ -66,13 +59,10 @@ Question                                                     | Frequency |
 | What's the easiest way to make money online?                  | 88        |
 | Can you see who views your Instagram?                         | 79        |
 
-
-From a personal perspective, it makes sense that these questions make up the top five. Instagram is known as one of the most popular social media platforms in the world. It is not surprising that the questions related to Instagram were repeated many times. Regarding the rest of the questions, all of them can be considered as one of the most common curiosities among people.
-
 ## The number of questions for each occurrence
 We plotted the logarithm of the number of questions for each occurrence on a logarithmic scale. The majority of the questions in the dataset approximately have occurrences of less than 60. On the other hand, it can be seen that all questions that appear repeatedly more than 60 times are present only once each.
 
-![](png/Log_Histogram_of_question_occurances.png)
+<img src="png/Log_Histogram_of_question_occurances.png" style="zoom:15%;" />
 
 
 ## Word Count in Questions
@@ -82,12 +72,8 @@ Next, we examined the distribution of how many words were included in each quest
 | Statistic| total questions | mean | std | min | 25% | 50% | 75% | max   |
 | ---      | ---   | ---  | --- | --- | --- | --- | --- | ---   |
 | Value | 808574| 11.1 | 5.9 | 1.0 | 7.0 |10.0 |13.0 | 237.0|
-|
 
-![](png/word_count_dist.png)
-
-
-![](png/word_count_dist(boxplot).png)
+<img src="png/word_count_dist.png" style="zoom:15%;" />
 
 ### The maximum number of words in a question
 Since the questions that contain the maximum number of words are isolated from the rest of the questions, we further investigated the questions that contain the maximum number of words, which is 237 words. By executing the following code, we found that all the questions that contain the maximum number of words are identical to each other as shown below.
@@ -121,14 +107,7 @@ The motivation behind these new features is that we can intuitively predict that
 We predicted that Duplicated Questions are likely to contain many unique words. In that sense, plotting Word Clouds help us to grasp some important words or features behind the large dataset. 
 
 ###  Import Libraries for Word Cloud Visualization
-To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`. The reason why we also imported the` STOPWORDS` (English) library `from wordcloud` is because stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords. As per the code below, the necessary libraries for preprocessing and visualization of a word cloud have been imported.
-
-```python
-from wordcloud import WordCloud, STOPWORDS
-import re
-from nltk.stem import PorterStemmer
-from bs4 import BeautifulSoup
-```
+To visualize the word cloud, we imported the WordCloud library with `from wordcloud import WordCloud`, and the` STOPWORDS` (English) library `from wordcloud` because stopwords are considered the most frequent words in English and we wanted to eliminate their effect so that we can focus on more important words, which are not stopwords. 
 
 ### Text Preprocessing
 In order to visualize the word cloud, we first preprocessed the text data. Furthermore, by going through this process, we can make the text data easier for our machine learning model to interpret the text data. The preprocessing steps are as follows:
@@ -156,7 +135,7 @@ wc = WordCloud(background_color="white", max_words= 100, stopwords=stopwords,col
 Each word cloud for duplicated and non-duplicated questions is shown below.  we can only noticeably see "quora", "money", and "life" in the Duplicated Questions, while "one", "good", and "difference" is in common in the Non-Duplicated Questions. This result is consistent with our intuition that the Duplicated Questions are likely to contain many more specific words than the Non-Duplicated Questions.
 
 #### **Duplicated Questions**
-![](png/word_clous_duplicate_pair.png)
+<img src="png/word_clous_duplicate_pair.png"  />
 
 #### **Non-Duplicated Questions**
 ![](png/word_clous_non_duplicate_pair.png)
@@ -198,8 +177,7 @@ Since increasing the number of  MinHash permutations improves model performance 
 | 0.8       | 0.37      | 0.14   |
 | 0.9       | 0.36      | 0.07   |
 
-
-![](png/precision_recall.png)
+<img src="png/precision_recall.png" style="zoom:15%;" />
 
 # 5. Machine Learning Model
 
@@ -211,47 +189,21 @@ We first split the original data into training data(70%) and test data(30%).
 ## *TD-IDF word match*
 As we have seen before that the word share feature is strongly correlated to the is_duplicate label, we try to improve this feature, by using TF-IDF (term-frequency-inverse-document-frequency). TD-IDF is a statistical measure for evaluating how important a word is to a document in a collection or corpus. The term frequency (TF) component measures how frequently a term appears in a document, while the inverse document frequency (IDF) component measures how rare or common a term is across all documents in the corpus. Together, these components can be used to score the relevance of a term to a particular document or set of documents. More specificlly, first we count and weigh the words in order to measure how uncommon they are. We care about rare words existing in both questions than common one. For example, if the word "exercise" appears in both questions, they are more likely to be duplicate.
 
-Most common words and weights: <br>
-('the', 3.650647624888655e-06), <br>('what', 4.217860953995791e-06), <br>('is', 4.740302526107216e-06), <br>('i', 6.015037593984962e-06), <br>('how', 6.075038880248834e-06), <br>('a', 6.304812463353277e-06), <br>('to', 6.491103942047424e-06), <br>('in', 6.7559807319429525e-06), <br>('do', 7.77502196443705e-06), <br>('of', 8.220777192275757e-06)
-
-Least common words and weights: <br>
-('dcx3400', 9.998000399920016e-05),<br>
-('855', 9.998000399920016e-05),<br>
-('confederates', 9.998000399920016e-05),<br>
-('gonulcelen', 9.998000399920016e-05),<br>
-('asahi', 9.998000399920016e-05),<br>
-('oitnb', 9.998000399920016e-05),<br>
-('essex', 9.998000399920016e-05),<br>
-('prospering', 9.998000399920016e-05),<br>
-('hysteria', 9.998000399920016e-05),<br>
-('immerse', 9.998000399920016e-05)
+| Most common words | Weights | Least Common words | Weights |
+| ----------------- | ------- | ------------------ | ------- |
+| the               |3.65e-06 | dcx3400            | 9.99e-05|
+| what              |4.21e-06 | 855                | 9.99e-05|
+| is                |4.74e-06 | confederates       | 9.99e-05|
+|i                  |6.01e-06 | gonulcelen         | 9.99e-05|
+|how                |6.07e-06 | asahi              | 9.99e-05| 
 
 And we define TD-IDF word match as the fraction of the weights of shared words between 2 questions over the total weights of 2 questions.
-```python
-def tfidf_word_match_share(row):
-    q1words = {}
-    q2words = {}
-    for word in str(row['question1']).lower().split():
-        if word not in stops:
-            q1words[word] = 1
-    for word in str(row['question2']).lower().split():
-        if word not in stops:
-            q2words[word] = 1
-    if len(q1words) == 0 or len(q2words) == 0:
-        # The computer-generated chaff includes a few questions that are nothing but stopwords
-        return 0
-    
-    shared_weights = [weights.get(w, 0) for w in q1words.keys() if w in q2words] + [weights.get(w, 0) for w in q2words.keys() if w in q1words]
-    total_weights = [weights.get(w, 0) for w in q1words] + [weights.get(w, 0) for w in q2words]
-    
-    R = np.sum(shared_weights) / np.sum(total_weights)
-    return R
-```
 ## *Model&Traning*
 We use logistic regression to produce the probability of being duplicate and XGboost to optimize the log-loss function.
 
 **Tranining Curve**
-![](png/MLtrainingcurve.png)
+
+<img src="png/MLtrainingcurve.png" style="zoom:60%;" />
 
 
 ## Result
