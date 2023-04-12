@@ -183,11 +183,16 @@ Since increasing the number of  MinHash permutations improves model performance 
 
 In order to get a better performance for predicting duplicates, we applied another method based on Machine Learning - XGBoost and we will compare the result with the Hashing method.
 
-## *Data Split*
-We first split the original data into training data(70%) and test data(30%).
+## Additional Libraries
+
+import seaborn as sns<br>
+from nltk.corpus import stopwords<br>
+from collections import Counter<br>
+import xgboost as xgb<br>
+
 
 ## *TD-IDF word match*
-As we have seen before that the word share feature is strongly correlated to the is_duplicate label, we try to improve this feature, by using TF-IDF (term-frequency-inverse-document-frequency). TD-IDF is a statistical measure for evaluating how important a word is to a document in a collection or corpus. The term frequency (TF) component measures how frequently a term appears in a document, while the inverse document frequency (IDF) component measures how rare or common a term is across all documents in the corpus. Together, these components can be used to score the relevance of a term to a particular document or set of documents. More specificlly, first we count and weigh the words in order to measure how uncommon they are. We care about rare words existing in both questions than common one. For example, if the word "exercise" appears in both questions, they are more likely to be duplicate.
+As we have seen before that the word share feature is strongly correlated to the is_duplicate label, we try to improve this feature, by using TF-IDF (term-frequency-inverse-document-frequency). The term frequency (TF) component measures how frequently a term appears in a document, while the inverse document frequency (IDF) component measures how rare or common a term is across all documents in the corpus. Together, these components can be used to score the relevance of a term to a particular document or set of documents. More specificlly, first we count and weigh the words in order to measure how uncommon they are. We care about rare words existing in both questions than common one. For example, if the word "exercise" appears in both questions, they are more likely to be duplicate.
 
 | Most common words | Weights | Least Common words | Weights |
 | ----------------- | ------- | ------------------ | ------- |
@@ -197,7 +202,6 @@ As we have seen before that the word share feature is strongly correlated to the
 |i                  |6.01e-06 | gonulcelen         | 9.99e-05|
 |how                |6.07e-06 | asahi              | 9.99e-05| 
 
-And we define TD-IDF word match as the fraction of the weights of shared words between 2 questions over the total weights of 2 questions.
 ## *Model&Traning*
 We use logistic regression to produce the probability of being duplicate and XGboost to optimize the log-loss function.
 
@@ -207,7 +211,7 @@ We use logistic regression to produce the probability of being duplicate and XGb
 
 
 ## Result
-We reach a highest accuracy of 69.37% with a threshold of 0.5, meanwhile the precision is 58.81% and recall is 58.64%. It indicates that our model has some classification ability, but it is not very accurate. Besides, about 40% of the true positive samples were misclassified as negative by the model. And about 40% of our predicted positive samples are not true positive. We can also reach a highest recall with threshold 0.2 and a highest precision with threshold 0.7. When the threshold goes over 0.7, the model predicts no duplicate thus we will have a null value for precision and a 0 for recall.
+We reach a highest accuracy of 69.37% with a threshold of 0.5, meanwhile the precision is 58.81% and recall is 58.64%. It indicates that our model has some classification ability, but it is not very accurate.  We can also reach a highest recall with threshold 0.2 and a highest precision with threshold 0.7. When the threshold goes over 0.7, the model predicts no duplicate thus we will have a null value for precision and a 0 for recall.
 
 | Threshold | Precision | Recall | Accuracy |
 | --------- | --------- | ------ | -------- |
